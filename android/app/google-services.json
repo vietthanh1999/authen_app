@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "855967719874",
+    "project_id": "authenapp-5a3de",
+    "storage_bucket": "authenapp-5a3de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:855967719874:android:d3cf58999bd6fa3dbab65b",
+        "android_client_info": {
+          "package_name": "com.example.authen_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "855967719874-7qn6bd3m10a80kd16algj4huh71nd868.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfoGaeHqWV36Yedr3QgN-dtN0VHyg08YY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "855967719874-7qn6bd3m10a80kd16algj4huh71nd868.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "855967719874-rgac7tqortoehk3ujsf7a29mu6puru0u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.authenApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
