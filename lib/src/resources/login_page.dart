@@ -1,4 +1,8 @@
 import 'package:authen_app/src/blocs/login_bloc.dart';
+import 'package:authen_app/src/resources/dialog/loading_dialog.dart';
+import 'package:authen_app/src/resources/dialog/msg_dialog.dart';
+import 'package:authen_app/src/resources/login.dart';
+import 'package:authen_app/src/resources/login_social.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:authen_app/src/resources/home_page.dart';
@@ -32,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
             // shrinkWrap: true,
             // reverse: true,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               Padding(
@@ -116,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                         shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(8)))),
-                    onPressed: onSignInClicked,
+                    onPressed: onLoginClick,
                     child: const Text(
                       'SIGN IN',
                       style: TextStyle(color: Colors.white),
@@ -135,7 +139,8 @@ class _LoginPageState extends State<LoginPage> {
                         RichText(
                             text: TextSpan(
                                 text: 'NEW USER? ',
-                                style: const TextStyle(color: Color(0xff888888)),
+                                style:
+                                    const TextStyle(color: Color(0xff888888)),
                                 children: [
                               TextSpan(
                                   recognizer: TapGestureRecognizer()
@@ -149,10 +154,18 @@ class _LoginPageState extends State<LoginPage> {
                                   text: 'REGISTER',
                                   style: const TextStyle(color: Colors.blue)),
                             ])),
-                        const Text(
-                          'FORGET PASSWORD',
-                          style: TextStyle(fontSize: 15, color: Colors.blue),
-                        )
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            textStyle: const TextStyle(fontSize: 13),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Login()));
+                          },
+                          child: const Text('LOGIN SOCIAL'),
+                        ),
                       ]),
                 ),
               )
@@ -170,6 +183,7 @@ class _LoginPageState extends State<LoginPage> {
             context, MaterialPageRoute(builder: (context) => const HomePage()));
       }
     });
+    // onLoginClick();
   }
 
   void onToggleShowPass() {
@@ -179,6 +193,22 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget goToHome(BuildContext context) {
-    return HomePage();
+    return const HomePage();
+  }
+
+  void onLoginClick() {
+    String user = _userController.text;
+    String pass = _passController.text;
+    if (bloc.isValidInfo(_userController.text, _passController.text)) {
+      LoadingDialog.showLoadingDialog(context, "Loading...");
+      bloc.signIn(user, pass, () {
+        LoadingDialog.hideLoadingDialog(context);
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const HomePage()));
+      }, (msg) {
+        LoadingDialog.hideLoadingDialog(context);
+        MsgDialog.showMsgDialog(context, "Sign In", msg);
+      });
+    }
   }
 }

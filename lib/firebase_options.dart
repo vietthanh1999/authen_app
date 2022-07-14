@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '855967719874',
     projectId: 'authenapp-5a3de',
     authDomain: 'authenapp-5a3de.firebaseapp.com',
+    databaseURL: 'https://authenapp-5a3de-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'authenapp-5a3de.appspot.com',
     measurementId: 'G-YDW2EEVNBJ',
   );
@@ -58,6 +59,7 @@ class DefaultFirebaseOptions {
     appId: '1:855967719874:android:d3cf58999bd6fa3dbab65b',
     messagingSenderId: '855967719874',
     projectId: 'authenapp-5a3de',
+    databaseURL: 'https://authenapp-5a3de-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'authenapp-5a3de.appspot.com',
   );
 
@@ -66,6 +68,7 @@ class DefaultFirebaseOptions {
     appId: '1:855967719874:ios:dea2f4225feb0f39bab65b',
     messagingSenderId: '855967719874',
     projectId: 'authenapp-5a3de',
+    databaseURL: 'https://authenapp-5a3de-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'authenapp-5a3de.appspot.com',
     iosClientId: '855967719874-rgac7tqortoehk3ujsf7a29mu6puru0u.apps.googleusercontent.com',
     iosBundleId: 'com.example.authenApp',
@@ -76,6 +79,7 @@ class DefaultFirebaseOptions {
     appId: '1:855967719874:ios:dea2f4225feb0f39bab65b',
     messagingSenderId: '855967719874',
     projectId: 'authenapp-5a3de',
+    databaseURL: 'https://authenapp-5a3de-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'authenapp-5a3de.appspot.com',
     iosClientId: '855967719874-rgac7tqortoehk3ujsf7a29mu6puru0u.apps.googleusercontent.com',
     iosBundleId: 'com.example.authenApp',
