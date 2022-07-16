@@ -1,11 +1,9 @@
-import 'package:authen_app/src/resources/LoginText.dart';
 import 'package:authen_app/src/resources/home_page.dart';
 import 'package:authen_app/src/resources/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
@@ -18,7 +16,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   var loading = false;
 
-  void _LoginWithInFaceBook() async {
+  void _loginWithInFaceBook() async {
     setState(() {
       loading = true;
     });
@@ -64,7 +62,7 @@ class _LoginState extends State<Login> {
     }
   }
 
-  void _LoginWithInGoogle() async {
+  void _loginWithInGoogle() async {
     setState(() {
       loading = true;
     });
@@ -124,35 +122,45 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: const Color(0xfff9faf9),
+        elevation: 0,
+        centerTitle: true,
+        title: const _LoginText('Login', 18, Colors.black),
+      ),
       body: Center(
           child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const LoginText('Login Social'),
-          const SizedBox(
-            height: 5,
+          _Button(
+              color: Colors.black,
+              isBorder: true,
+              image: const AssetImage('assets/images/google.png'),
+              text: 'Google',
+              onPressed: () {
+                _loginWithInGoogle();
+              }),
+          _Button(
+              color: Colors.white,
+              backgroundColor: const Color(0xff415ca3),
+              image: const AssetImage('assets/images/facebook.png'),
+              text: 'Facebook',
+              onPressed: () {
+                _loginWithInFaceBook();
+              }),
+          const Padding(
+            padding: EdgeInsets.only(top: 20),
+            child: _LoginText('or', 18, Colors.black),
           ),
           _Button(
-              color: Colors.grey.shade600,
+              color: Colors.white,
+              backgroundColor: const Color(0xffc64d36),
               image: const AssetImage('assets/images/email.png'),
               text: 'Email',
               onPressed: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => const LoginPage()));
-              }),
-          _Button(
-              color: Colors.grey.shade600,
-              image: const AssetImage('assets/images/facebook.png'),
-              text: 'Facebook',
-              onPressed: () {
-                _LoginWithInFaceBook();
-              }),
-          _Button(
-              color: Colors.grey.shade600,
-              image: const AssetImage('assets/images/google.png'),
-              text: 'Google',
-              onPressed: () {
-                _LoginWithInGoogle();
               }),
         ],
       )),
@@ -165,54 +173,79 @@ class _Button extends StatelessWidget {
   final ImageProvider image;
   final String text;
   final VoidCallback onPressed;
+  final Color backgroundColor;
+  final bool isBorder;
 
-  _Button({
+  const _Button({
     required this.color,
     required this.image,
     required this.text,
     required this.onPressed,
+    this.backgroundColor = Colors.white,
+    this.isBorder = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
-      child: GestureDetector(
-        onTap: () {
-          if (onPressed != null) {
-            onPressed();
-          }
-        },
-        child: Container(
-          height: 55,
-          decoration: BoxDecoration(
-              border: Border.all(color: color),
-              borderRadius: BorderRadius.circular(5)),
-          padding: const EdgeInsets.all(10),
-          child: Row(children: [
-            const SizedBox(
-              width: 5,
-            ),
-            Image(
-              image: image,
-              width: 25,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Expanded(
-                child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(text, style: TextStyle(color: color, fontSize: 18)),
-                const SizedBox(
-                  width: 35,
-                )
-              ],
-            ))
-          ]),
+      padding: const EdgeInsets.only(
+        top: 20.0,
+        left: 20.0,
+        right: 20.0,
+      ),
+      child: Container(
+        color: backgroundColor,
+        child: GestureDetector(
+          onTap: () {
+            if (onPressed != null) {
+              onPressed();
+            }
+          },
+          child: Container(
+            height: 55,
+            decoration: BoxDecoration(border: !isBorder ? Border.all(color: backgroundColor) : Border.all(color: Colors.grey.shade200)),
+            padding: const EdgeInsets.all(10),
+            child: Row(children: [
+              const SizedBox(
+                width: 5,
+              ),
+              Container(
+                color: Colors.white,
+                child: Image(
+                  image: image,
+                  width: 25,
+                ),
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Expanded(
+                  child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(text, style: TextStyle(color: color, fontSize: 18)),
+                  const SizedBox(
+                    width: 35,
+                  )
+                ],
+              ))
+            ]),
+          ),
         ),
       ),
     );
+  }
+}
+
+class _LoginText extends StatelessWidget {
+  final String text;
+  final double fontSize;
+  final Color color;
+
+  const _LoginText(this.text, this.fontSize, this.color);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(text, style: TextStyle(color: color, fontSize: fontSize));
   }
 }

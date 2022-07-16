@@ -2,7 +2,6 @@ import 'package:authen_app/src/blocs/login_bloc.dart';
 import 'package:authen_app/src/resources/dialog/loading_dialog.dart';
 import 'package:authen_app/src/resources/dialog/msg_dialog.dart';
 import 'package:authen_app/src/resources/login.dart';
-import 'package:authen_app/src/resources/login_social.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:authen_app/src/resources/home_page.dart';
@@ -18,8 +17,8 @@ class _LoginPageState extends State<LoginPage> {
   LoginBloc bloc = new LoginBloc();
 
   bool _showPass = false;
-  TextEditingController _userController = new TextEditingController();
-  TextEditingController _passController = new TextEditingController();
+  final TextEditingController _userController = TextEditingController();
+  final TextEditingController _passController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         RichText(
                             text: TextSpan(
-                                text: 'NEW USER? ',
+                                text: 'New user? ',
                                 style:
                                     const TextStyle(color: Color(0xff888888)),
                                 children: [
@@ -151,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                                               builder: (context) =>
                                                   HomePage()));
                                     },
-                                  text: 'REGISTER',
+                                  text: 'Register',
                                   style: const TextStyle(color: Colors.blue)),
                             ])),
                         TextButton(
@@ -164,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                                 MaterialPageRoute(
                                     builder: (context) => const Login()));
                           },
-                          child: const Text('LOGIN SOCIAL'),
+                          child: const Text('Forgot password'),
                         ),
                       ]),
                 ),
@@ -183,7 +182,6 @@ class _LoginPageState extends State<LoginPage> {
             context, MaterialPageRoute(builder: (context) => const HomePage()));
       }
     });
-    // onLoginClick();
   }
 
   void onToggleShowPass() {
